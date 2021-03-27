@@ -11,16 +11,24 @@ var PatientSchema = new Schema({
     email: {
         type: String,
         // Validate the email format
-        match: [/.+\@.+\..+/, 'Please fill a valid email address']
+        match: [/.+\@.+\..+/, 'Please provide a valid email address'],
     },
     password: {
         type: String,
         // Validate the 'password' value length
         validate: [
             (password) => password && password.length > 6,
-            'Password should be longer than 6 characters'
-        ]
-    }
+            'Password should be longer than 6 characters',
+        ],
+    },
+    requirements: {
+        bodyTemperature: Boolean,
+        heartRate: Boolean,
+        bloodPressure: Boolean,
+        respiratoryRate: Boolean,
+        pulseRate: Boolean,
+        weight: Boolean,
+    },
 });
 
 // Set the 'fullname' virtual property

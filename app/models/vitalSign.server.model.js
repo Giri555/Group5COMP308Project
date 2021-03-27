@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 var VitalSignSchema = new Schema({
     dateTime: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
     bodyTemperature: String,
     heartRate: String,
@@ -16,8 +16,8 @@ var VitalSignSchema = new Schema({
     weight: String,
     patient: {
         type: Schema.ObjectId,
-        ref: 'Patient'
-    }
+        ref: 'Patient',
+    },
 });
 
 // Create the 'VitalSign' model out of the 'VitalSignSchema'

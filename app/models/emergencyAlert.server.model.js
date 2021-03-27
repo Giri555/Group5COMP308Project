@@ -7,12 +7,17 @@ var EmergencyAlertSchema = new Schema({
     title: String,
     dateTime: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
-    patient: {
+    emergencyContacts: String,
+    creator: {
         type: Schema.ObjectId,
-        ref: 'Patient'
-    }
+        ref: 'Patient',
+    },
+    sendTo: {
+        type: Schema.ObjectId,
+        ref: 'Nurse',
+    },
 });
 
 // Create the 'EmergencyAlert' model out of the 'EmergencyAlertSchema'

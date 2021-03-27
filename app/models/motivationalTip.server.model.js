@@ -8,12 +8,12 @@ var MotivationalTipSchema = new Schema({
     content: String,
     patient: {
         type: Schema.ObjectId,
-        ref: 'Patient'
+        ref: 'Patient',
     },
-    nurse: {
+    creator: {
         type: Schema.ObjectId,
-        ref: 'Nurse'
-    }
+        ref: 'Nurse',
+    },
 });
 
 // Create the 'MotivationalTip' model out of the 'MotivationalTipSchema'

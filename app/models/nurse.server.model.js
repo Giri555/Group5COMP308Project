@@ -10,23 +10,26 @@ var NurseSchema = new Schema({
     lastName: String,
     email: {
         type: String,
-        // Validate the email format
-        match: [/.+\@.+\..+/, 'Please fill a valid email address']
+        // Validate the email format (must include '@nurse.ca')
+        match: [
+            /[a-zA-Z0-9]+@nurse\.ca/i,
+            '(Nurse) Please provide a valid email address - email format must include @nurse.ca',
+        ],
     },
     password: {
         type: String,
         // Validate the 'password' value length
         validate: [
             (password) => password && password.length > 6,
-            'Password should be longer than 6 characters'
-        ]
+            'Password should be longer than 6 characters',
+        ],
     },
     patientList: [
         {
             type: Schema.ObjectId,
-            ref: 'Patient'
-        }
-    ]
+            ref: 'Patient',
+        },
+    ],
 });
 
 // Set the 'fullname' virtual property
