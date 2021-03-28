@@ -1,28 +1,36 @@
 // Load the 'nurses' controller
-var nurses = require('../../app/controllers/nurse.server.controller');
+var NurseController = require('../../app/controllers/nurse.server.controller');
 
 // Define the routes module' method
 module.exports = function (app) {
     /* 
-        Set up the 'studentId' parameter middleware
+        Set up the 'nurseId' parameter middleware
         All param callbacks will be called before any handler of
         any route in which the param occurs, and they will each
         be called only once in a request - response cycle,
         even if the parameter is matched in multiple routes 
     */
-    app.param('nurseId', nurses.nurseByID);
+    app.param('nurseId', NurseController.nurseByID);
 
     // authenticate nurse
-    app.post('/signin', nurses.authenticate);
-    app.get('/signout', nurses.signout);
+    app.post('/api/nurse/sign-in', NurseController.authenticate);
+    app.get('/api/nurse/sign-out', NurseController.signout);
+    app.get('/api/nurse/read-cookie', NurseController.isSignedIn);
 
-    app.route('/api/nurses')
-        .get(nurses.list)
-        .post(nurses.create);
+    app.get('/api/nurse/listNurses', NurseController.list);
+
+    app.post('/api/nurse/sign-up', NurseController.create);
 
     app.route('/api/nurses/:nurseId')
-        .get(nurses.read)
-        .put(nurses.requiresLogin, nurses.hasAuthorization, nurses.update)
-        .delete(nurses.requiresLogin, nurses.hasAuthorization, nurses.delete);
+        .get(NurseController.read)
+        .put(
+            NurseController.requiresLogin,
+            NurseController.hasAuthorization,
+            NurseController.update
+        )
+        .delete(
+            NurseController.requiresLogin,
+            NurseController.hasAuthorization,
+            NurseController.delete
+        );
 };
-

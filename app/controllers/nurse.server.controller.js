@@ -50,21 +50,30 @@ exports.authenticate = function (req, res, next) {
             if (bcrypt.compareSync(password, nurse.password)) {
                 // Create a new token with the nurse id in the payload
                 // and which expires 300 seconds after issue
-                const token = jwt.sign(
+                const nurseToken = jwt.sign(
                     { id: nurse._id, email: nurse.email },
                     jwtKey,
                     { algorithm: 'HS256', expiresIn: jwtExpirySeconds }
                 );
-                console.log('token:', token);
+                console.log('nurseToken:', nurseToken);
                 // set the cookie as the token string, with a similar max age as the token
                 // here, the max age is in milliseconds
-                res.cookie('token', token, {
+                res.cookie('nurseToken', nurseToken, {
                     maxAge: jwtExpirySeconds * 1000,
                     httpOnly: true,
                 });
-                res.status(200).send({
-                    screen: nurse.email,
-                    token: token,
+                // res.status(200).send({
+                //     screen: nurse.email,
+                //     nurseToken: nurseToken,
+                // });
+
+                res.json({
+                    status: 'success',
+                    message: 'nurse found !!!',
+                    data: {
+                        nurse: nurse,
+                        nurseToken: nurseToken,
+                    },
                 });
 
                 req.nurse = nurse;
@@ -85,7 +94,7 @@ exports.authenticate = function (req, res, next) {
 // sign out function in controller
 // deletes the token on the client side by clearing the cookie named 'token'
 exports.signout = (req, res) => {
-    res.clearCookie('token');
+    res.clearCookie('nurseToken');
     return res.status('200').json({ message: 'signed out' });
     // Redirect the nurse back to the main application page
     //res.redirect('/');
@@ -95,10 +104,10 @@ exports.signout = (req, res) => {
 exports.isSignedIn = (req, res) => {
     // Obtain the session token from the requests cookies,
     // which come with every request
-    const token = req.cookies.token;
-    console.log(token);
+    const nurseToken = req.cookies.nurseToken;
+    console.log(nurseToken);
     // if the cookie is not set, return 'auth'
-    if (!token) {
+    if (!nurseToken) {
         return res.send({ screen: 'auth' }).end();
     }
     var payload;
@@ -107,7 +116,7 @@ exports.isSignedIn = (req, res) => {
         // Note that we are passing the key in this method as well. This method will throw an error
         // if the token is invalid (if it has expired according to the expiry time we set on sign in),
         // or if the signature does not match
-        payload = jwt.verify(token, jwtKey);
+        payload = jwt.verify(nurseToken, jwtKey);
     } catch (e) {
         if (e instanceof jwt.JsonWebTokenError) {
             // the JWT is unauthorized, return a 401 error
@@ -125,10 +134,10 @@ exports.isSignedIn = (req, res) => {
 exports.requiresLogin = function (req, res, next) {
     // Obtain the session token from the requests cookies,
     // which come with every request
-    const token = req.cookies.token;
-    console.log(token);
+    const nurseToken = req.cookies.nurseToken;
+    console.log(nurseToken);
     // if the cookie is not set, return an unauthorized error
-    if (!token) {
+    if (!nurseToken) {
         return res.send({ screen: 'auth' }).end();
     }
     var payload;
@@ -137,7 +146,7 @@ exports.requiresLogin = function (req, res, next) {
         // Note that we are passing the key in this method as well. This method will throw an error
         // if the token is invalid (if it has expired according to the expiry time we set on sign in),
         // or if the signature does not match
-        payload = jwt.verify(token, jwtKey);
+        payload = jwt.verify(nurseToken, jwtKey);
         console.log('in requiresLogin - payload:', payload);
         req.id = payload.id;
     } catch (e) {
