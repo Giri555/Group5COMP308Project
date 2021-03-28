@@ -6,14 +6,10 @@ const Schema = mongoose.Schema;
 var MotivationalTipSchema = new Schema({
     title: String,
     content: String,
-    patient: {
-        type: Schema.ObjectId,
-        ref: 'Patient',
-    },
     creator: {
         type: Schema.ObjectId,
         ref: 'Nurse',
-    },
+    }
 });
 
 // Create the 'MotivationalTip' model out of the 'MotivationalTipSchema'
