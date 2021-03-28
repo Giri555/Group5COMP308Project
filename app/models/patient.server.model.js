@@ -29,6 +29,10 @@ var PatientSchema = new Schema({
         pulseRate: Boolean,
         weight: Boolean,
     },
+    motiTipList: [{
+        type: Schema.ObjectId,
+        ref: 'MotivationalTip',
+    }]
 });
 
 // Set the 'fullname' virtual property
