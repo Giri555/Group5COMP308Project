@@ -1,10 +1,17 @@
-// Load the index controller
-var index = require('../controllers/index.server.controller');
+// Load the controller(s)
+const IndexController = require('../controllers/index.server.controller');
 
 // Define the routes module method
 module.exports = function (app) {
+    // show the api 'index' page if a GET request is made to root
+    app.route('/').get(IndexController.renderIndex);
 
-    // show the 'index' page if a GET request is made to root
-    app.route('/').get(index.render);
+    // process sign up request and redirect to appropriate route
+    app.post('/api/index/sign-up', IndexController.signUp);
 
+    // process sign in request and redirect to appropriate route
+    app.post('/api/index/sign-in', IndexController.signIn);
+
+    // process sign out request
+    // app.post('/api/index/sign-out', IndexController.signOut);
 };
