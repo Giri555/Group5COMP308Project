@@ -225,7 +225,7 @@ exports.welcome = (req, res) => {
 //deletes the token on the client side by clearing the cookie named 'token'
 exports.signout = (req, res) => {
     res.clearCookie('patientToken');
-    return res.status('200').json({ message: 'signed out' });
+    return res.status('200').json({ message: 'Patient signed out' });
     // Redirect the patient back to the main application page
     //res.redirect('/');
 };

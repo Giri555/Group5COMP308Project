@@ -13,5 +13,5 @@ module.exports = function (app) {
     app.post('/api/index/sign-in', IndexController.signIn);
 
     // process sign out request
-    // app.post('/api/index/sign-out', IndexController.signOut);
+    app.get('/api/index/sign-out', IndexController.signOut);
 };

@@ -1,5 +1,5 @@
 // Load the 'nurses' controller
-var NurseController = require('../../app/controllers/nurse.server.controller');
+const NurseController = require('../../app/controllers/nurse.server.controller');
 
 // Define the routes module' method
 module.exports = function (app) {

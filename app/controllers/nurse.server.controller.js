@@ -27,6 +27,11 @@ exports.authenticate = function (req, res, next) {
     console.log(req.body);
     const email = req.body.auth.email;
     const password = req.body.auth.password;
+
+    // test api
+    // const email = req.body.email;
+    // const password = req.body.password;
+
     console.log(email);
     console.log(password);
 
@@ -95,7 +100,7 @@ exports.authenticate = function (req, res, next) {
 // deletes the token on the client side by clearing the cookie named 'token'
 exports.signout = (req, res) => {
     res.clearCookie('nurseToken');
-    return res.status('200').json({ message: 'signed out' });
+    return res.status('200').json({ message: 'Nurse signed out' });
     // Redirect the nurse back to the main application page
     //res.redirect('/');
 };
