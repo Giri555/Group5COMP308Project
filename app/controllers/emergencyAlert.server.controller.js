@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const EmergencyAlert = mongoose.model('EmergencyAlert');
-const Nurse = require('mongoose').model('Nurse');
-
+const Patient = require('mongoose').model('Patient');
 //
 function getErrorMessage(err) {
     if (err.errors) {
@@ -21,18 +20,18 @@ exports.create = function (req, res) {
     console.log(req.body)
     //
     //
-    Nurse.findOne({email: req.body.email}, (err, nurse) => {
+    Patient.findOne({email: req.body.email}, (err, patient) => {
 
         if (err) { return getErrorMessage(err); }
         //
-        req.id = nurse._id;
-        console.log('nurse._id',req.id);
+        req.id = patient._id;
+        console.log('patient._id',req.id);
 
 	
     }).then( function () 
     {
         emergencyAlert.creator = req.id
-        console.log('req.nurse._id',req.id);
+        console.log('req.patient._id',req.id);
 
         emergencyAlert.save((err) => {
             if (err) {
@@ -50,7 +49,7 @@ exports.create = function (req, res) {
 };
 //
 exports.list = function (req, res) {
-    EmergencyAlert.find().sort('-created').populate('patient', 'firstName lastName fullName').exec((err, emergencyAlerts) => {
+    EmergencyAlert.find().sort('-created').populate('patient', 'firstName lastName').exec((err, emergencyAlerts) => {
 if (err) {
         return res.status(400).send({
             message: getErrorMessage(err)
@@ -103,17 +102,18 @@ exports.delete = function (req, res) {
         }
     });
 };
-//The hasAuthorization() middleware uses the req.emergencyAlert and req.nurse objects
-//to verify that the current nurse is the creator of the current emergencyAlert
+
+//The hasAuthorization() middleware uses the req.emergencyAlert and req.patient objects
+//to verify that the current patient is the creator of the current emergencyAlert
 exports.hasAuthorization = function (req, res, next) {
     console.log('in hasAuthorization - creator: ',req.emergencyAlert.creator)
-    console.log('in hasAuthorization - nurse: ',req.id)
-    //console.log('in hasAuthorization - nurse: ',req.nurse._id)
+    console.log('in hasAuthorization - patient: ',req.id)
+    //console.log('in hasAuthorization - patient: ',req.patient._id)
 
 
     if (req.emergencyAlert.creator.id !== req.id) {
         return res.status(403).send({
-            message: 'Nurse is not authorized'
+            message: 'Patient is not authorized'
         });
     }
     next();

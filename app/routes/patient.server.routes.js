@@ -9,8 +9,15 @@ module.exports = function (app) {
     // Set up the 'patients' parameterized routes
     app.route('api/patients/:patientId')
         .get(PatientController.read)
-        .put(PatientController.update)
-        .delete(PatientController.delete);
+        .put(
+            PatientController.requiresLogin,
+            PatientController.hasAuthorization,
+            PatientController.update
+        )
+        .delete(
+            PatientController.requiresLogin,
+            PatientController.hasAuthorization,
+            PatientController.delete);
     // Set up the 'patientId' parameter middleware
     // All param callbacks will be called before any handler of
     // any route in which the param occurs, and they will each
@@ -21,6 +28,8 @@ module.exports = function (app) {
     app.post('/api/patient/sign-in', PatientController.authenticate);
     app.get('/api/patient/sign-out', PatientController.signout);
     app.get('/api/patient/read-cookie', PatientController.isSignedIn);
+
+    app.get('/api/nurse/listPatients', PatientController.list);
 
     // path to a protected page
     app.get('api/patient/welcome', PatientController.welcome);

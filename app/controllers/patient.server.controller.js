@@ -180,7 +180,7 @@ exports.authenticate = function (req, res, next) {
             } else {
                 res.json({
                     status: 'error',
-                    message: 'Invalid Patient Password',
+                    message: 'Invalid Password',
                     data: null,
                 });
             }
