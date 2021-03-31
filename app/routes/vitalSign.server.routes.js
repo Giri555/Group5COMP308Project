@@ -8,7 +8,7 @@ module.exports = function (app) {
     // set up 'vitalSignsId' parameter middleware
     app.param('vitalSignsId', VitalSignsController.vitalSignsById);
 
-    // ######  Nurse's requirements:  ######
+    // ######  Nurse's requirements: (Vital Signs)  ######
 
     // NR1) nurse needs to update a specific patient document, with their required vital signs
     app.route('/api/vital-signs/update-patient-requirements/:patientId').put(
@@ -33,15 +33,23 @@ module.exports = function (app) {
         VitalSignsController.list
     );
 
-    // ######  Patient's requirements:  ######
+    // ######  Patient's requirements: (Daily Information)  ######
 
     // PR1) patient needs to create a daily information document, for the vital signs required by the nurse
+    app.route('/api/daily-info/patient/:patientId').post(
+        VitalSignsController.createDailyInfo
+    );
 
     // PR2) patient needs to read a daily information document
-
-    // PR3) patient needs to update a daily information document (in case they made an erroPRr)
-
+    // PR3) patient needs to update a daily information document (in case they made an error)
     // PR4) patient needs to delete a daily information document
+    app.route('/api/daily-info/patient/:patientId/:vitalSignsId')
+        .get(VitalSignsController.readDailyInfo)
+        .put(VitalSignsController.updateDailyInfo)
+        .delete(VitalSignsController.deleteDailyInfo);
 
     // PR5) patient needs to list all the daily information documents that they have created
+    app.route('/api/daily-info/patient/:patientId').get(
+        VitalSignsController.listDailyInfo
+    );
 };
