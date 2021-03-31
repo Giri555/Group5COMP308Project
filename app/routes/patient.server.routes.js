@@ -11,12 +11,12 @@ module.exports = function (app) {
         .get(PatientController.read)
         .put(
             PatientController.requiresLogin,
-            PatientController.hasAuthorization,
+            // PatientController.hasAuthorization,
             PatientController.update
         )
         .delete(
             PatientController.requiresLogin,
-            PatientController.hasAuthorization,
+            // PatientController.hasAuthorization,
             PatientController.delete);
     // Set up the 'patientId' parameter middleware
     // All param callbacks will be called before any handler of
