@@ -29,10 +29,24 @@ var PatientSchema = new Schema({
         pulseRate: Boolean,
         weight: Boolean,
     },
-    motiTipList: [{
-        type: Schema.ObjectId,
-        ref: 'MotivationalTip',
-    }]
+    motiTipList: [
+        {
+            type: Schema.ObjectId,
+            ref: 'MotivationalTip',
+        },
+    ],
+    vitalSignsList: [ // list of the vital signs docs created by a nurse
+        {
+            type: Schema.ObjectId,
+            ref: 'VitalSign',
+        },
+    ],
+    dailyInfoList: [ // list of the vital signs docs created by the patient
+        {
+            type: Schema.ObjectId,
+            ref: 'VitalSign',
+        },
+    ],
 });
 
 // Set the 'fullname' virtual property

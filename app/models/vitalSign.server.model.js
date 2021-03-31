@@ -13,11 +13,7 @@ var VitalSignSchema = new Schema({
     bloodPressure: String,
     respiratoryRate: String,
     pulseRate: String,
-    weight: String,
-    patient: {
-        type: Schema.ObjectId,
-        ref: 'Patient',
-    },
+    weight: String
 });
 
 // Create the 'VitalSign' model out of the 'VitalSignSchema'
