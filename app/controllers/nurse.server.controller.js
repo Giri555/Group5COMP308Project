@@ -129,7 +129,11 @@ exports.isSignedIn = (req, res) => {
     }
 
     // Finally, token is ok, return the email given in the token
-    res.status(200).send({ authorized: true });
+   // res.status(200).send({ authorized: true });
+
+    // Finally, token is ok, return the id given in the token
+    res.status(200).send({ screen: payload._id });
+
 };
 
 // isAuthenticated() method to check whether a nurse is currently authenticated
@@ -150,7 +154,7 @@ exports.requiresLogin = function (req, res, next) {
         // or if the signature does not match
         payload = jwt.verify(nurseToken, jwtKey);
         console.log('in requiresLogin - payload:', payload);
-        req.id = payload.id;
+        req.nurseId = payload.id;
     } catch (e) {
         if (e instanceof jwt.JsonWebTokenError) {
             // if the error thrown is because the JWT is unauthorized, return a 401 error

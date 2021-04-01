@@ -17,7 +17,7 @@ module.exports = function (app) {
     app.get('/api/nurse/sign-out', NurseController.signout);
     app.get('/api/nurse/read-cookie', NurseController.isSignedIn);
 
-    app.get('/api/nurse/listNurses', NurseController.list);
+    app.get('/api/nurses', NurseController.list);
 
     app.post('/api/nurse/sign-up', NurseController.create);
 
