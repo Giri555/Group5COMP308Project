@@ -44,6 +44,9 @@ exports.create = function (req, res, next) {
     patient.save(function (err) {
         if (err) {
             // Call the next middleware with an error message
+            if(err){
+                res.json({error: true});
+            }
             return next(err);
         } else {
             // Use the 'response' object to send a JSON response
@@ -122,19 +125,17 @@ exports.delete = function (req, res, next) {
 exports.authenticate = function (req, res, next) {
     // Get credentials from request
     console.log(req.body);
-
-    const email = req.body.auth.email;
-    const password = req.body.auth.password;
-
-    // test api
-    // const email = req.body.email;
-    // const password = req.body.password;
+    const email = req.body.email;
+    const password = req.body.password;
 
     console.log(password);
     console.log(email);
     //find the patient with given email using static method findOne
     Patient.findOne({ email: email }, (err, patient) => {
         if (err) {
+            if(err){
+                res.json({error: true});
+            }
             return next(err);
         } else {
             if (!patient) {
@@ -164,7 +165,10 @@ exports.authenticate = function (req, res, next) {
                     httpOnly: true,
                 });
                 // res.status(200).send({ screen: patient.email });
-
+                // res.status(200).send({
+                //     screen: patient.email,
+                //     token: patientToken,
+                // });
                 req.patient = patient;
 
                 res.json({
@@ -237,7 +241,8 @@ exports.isSignedIn = (req, res) => {
     console.log(patientToken);
     // if the cookie is not set, return 'auth'
     if (!patientToken) {
-        return res.send({ screen: 'auth' }).end();
+        console.log(`patient cooken not found`);
+        return res.json({ authorized: false }).end();
     }
     var payload;
     try {
@@ -256,7 +261,7 @@ exports.isSignedIn = (req, res) => {
     }
 
     // Finally, token is ok, return the email given in the token
-    res.status(200).send({ screen: payload.email });
+    res.status(200).json({ authorized: true });
 };
 
 //isAuthenticated() method to check whether a patient is currently authenticated

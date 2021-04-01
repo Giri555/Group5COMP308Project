@@ -24,13 +24,9 @@ exports.nurseByID = function (req, res, next, id) {
 
 exports.authenticate = function (req, res, next) {
     // Get credentials from request
-    console.log(req.body);
-    const email = req.body.auth.email;
-    const password = req.body.auth.password;
-
-    // test api
-    // const email = req.body.email;
-    // const password = req.body.password;
+    console.log(`authenticate: body: `+req.body);
+    const email = req.body.email;
+    const password = req.body.password;
 
     console.log(email);
     console.log(password);
@@ -113,7 +109,8 @@ exports.isSignedIn = (req, res) => {
     console.log(nurseToken);
     // if the cookie is not set, return 'auth'
     if (!nurseToken) {
-        return res.send({ screen: 'auth' }).end();
+        console.log(`nurse cookie not found`);
+        return res.json({ authorized: false }).end();
     }
     var payload;
     try {
@@ -132,7 +129,7 @@ exports.isSignedIn = (req, res) => {
     }
 
     // Finally, token is ok, return the email given in the token
-    res.status(200).send({ screen: payload.email });
+    res.status(200).send({ authorized: true });
 };
 
 // isAuthenticated() method to check whether a nurse is currently authenticated

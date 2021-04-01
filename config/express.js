@@ -39,7 +39,7 @@ module.exports = function () {
         );
         next();
     });
-    app.use(cors());
+    app.use(cors({ origin: true, credentials: true }));
     //
     app.use(methodOverride()); // use HTTP verbs such as PUT or DELETE in places where the client doesn't support it.
     //handle the use of PUT or DELETE methods
