@@ -67,7 +67,7 @@ module.exports = function () {
     require('../app/routes/index.server.routes.js')(app);
     require('../app/routes/nurse.server.routes.js')(app);
     require('../app/routes/patient.server.routes.js')(app);
-    // require('../app/routes/motivationalTip.server.routes.js')(app);
+    require('../app/routes/motivationalTip.server.routes.js')(app);
     require('../app/routes/vitalSign.server.routes.js')(app);
 
     //The express.static() middleware takes one argument
