@@ -14,10 +14,6 @@ var EmergencyAlertSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'Patient',
     },
-    sendTo: {
-        type: Schema.ObjectId,
-        ref: 'Nurse',
-    },
 });
 
 // Create the 'EmergencyAlert' model out of the 'EmergencyAlertSchema'

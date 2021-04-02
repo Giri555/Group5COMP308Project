@@ -13,13 +13,16 @@ import Alert from 'react-bootstrap/Alert';
 
 function EmergencyAlertForm(props) {
   const apiUrl = 'http://localhost:5000/api/index/send-alert';
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [alert, setAlert] = useState({
     title: '',
     dateTime: Date().toLocaleString(),
     emergencyContacts: ''
   });
-
+  const onChange = (e) => {
+    e.persist();
+    setAlert({ ...alert, [e.target.name]: e.target.value });
+  };
   const sendAlert = (e) => {
     e.preventDefault();
     const alertData = {
@@ -27,14 +30,12 @@ function EmergencyAlertForm(props) {
       dateTime: alert.dateTime,
       emergencyContacts: alert.emergencyContacts,
     };
-    axios
-      .post(apiUrl, alertData)
-      .then((result) => {
+    axios.post(apiUrl, alertData, {withCredentials: true, credentials:'include'})
+    .then((result) => {
         console.log(result.data);
         if (result.data.error === true) setError(true);
-        else props.history.push('/clinic/patient/emergency-alerts');
-      })
-      .catch((error) => {
+        else props.history.push('/clinic/patient');
+      }).catch((error) => {
         setError(true);
       });
   };
@@ -43,12 +44,13 @@ function EmergencyAlertForm(props) {
     <Container>
       <h1 className='display-4 mt-3 text-center'>Emergency Alerts</h1>
       <p className='text-muted text-center'>
-        Create and send an emergency alerts. First responders will receive it an act effective immediately.
+        Create and send an emergency alerts. First responders will receive it and act effective immediately.
         </p>
       <Form className='mt-3' onSubmit={sendAlert}>
         <Form.Group>
           <Form.Label>Title</Form.Label>
           <Form.Control
+            onChange={onChange}
             name='title'
             value={alert.title}
             type='text'
@@ -59,6 +61,7 @@ function EmergencyAlertForm(props) {
         <Form.Group>
           <Form.Label>Date</Form.Label>
           <Form.Control
+            onChange={onChange}
             name='dateTime'
             value={alert.dateTime}
             type='text'
@@ -69,10 +72,11 @@ function EmergencyAlertForm(props) {
         <Form.Group>
           <Form.Label>Emergency Contact</Form.Label>
           <Form.Control
+            onChange={onChange}
             name='emergencyContacts'
             value={alert.emergencyContacts}
             type='text'
-            placeholder='Enter the first responders'
+            placeholder="Enter the first responders' contact"
             required
           />
         </Form.Group>
