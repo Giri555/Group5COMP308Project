@@ -17,14 +17,14 @@ module.exports = function (app) {
     )
     .post(NurseController.requiresLogin, MotivationalTipsController.create);
 
-  // app
-  // .route('/api/motivationalTips/:motivationalTipId')
-  // .get(MotivationalTipsController.read)
+   app
+  .route('/api/motivationalTips/:motivationalTipId')
+  .get(MotivationalTipsController.read);
   // .put(MotivationalTipsController.update);
 
   //send tip to a patient
   app
-    .route("/api/nurse/motivationalTips/:motivationalTipId/:patientId")
+    .route('/api/nurse/motivationalTips/:motivationalTipId/:patientId')
     .put(
       NurseController.requiresLogin,
       MotivationalTipsController.sendTip

@@ -19,7 +19,7 @@ exports.create = function (req, res) {
   motivationalTip.title = req.body.title;
   motivationalTip.content = req.body.content; 
  
-console.log(req.nurseId);
+console.log('current nurse who want to create tip is '+req.nurseId);
   Nurse.findOne({ _id: req.nurseId }, (err, nurse) => {
     if (err) {
       return getErrorMessage(err);
@@ -118,7 +118,7 @@ Patient.findOne({_id:req.params.patientId },(err,patient)=>{
         if(err) return res.status(400).send({
             message: getErrorMessage(err)
         });
-        console.log(patient);
+        console.log('send tip to patient: '+patient);
         res.status(200).json(patient);
 })})
 };
@@ -137,7 +137,7 @@ exports.motivationalTipById = function (req, res, next, id) {
 //The hasAuthorization() middleware uses the req.article and req.user objects
 //to verify that the current user is the creator of the current article
 exports.hasAuthorization = function (req, res, next) {
-  console.log(req.motivationalTip.creator);
+  console.log('has auth? '+req.motivationalTip.creator);
   if (req.motivationalTip.creator.id !== req.id) {
     return res.status(403).send({
       message: "User is not authorized",
