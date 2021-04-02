@@ -1,95 +1,134 @@
 // react
-import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import PatientList from "./PatientsList";
-import EmergencyAlertsList from "./EmergencyAlertsList";
-import MotivationalTipsList from "./MotivationalTipsList";
-import VitalSignsList from "./VitalSignsList";
+import React, { useState, useEffect } from 'react';
 import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  withRouter,
-} from "react-router-dom";
+    BrowserRouter as Router,
+    Route,
+    Redirect,
+    withRouter,
+} from 'react-router-dom';
 
 // import axios
-import axios from "axios";
+import axios from 'axios';
 
 // import any react-bootstrap components you may need:
-import Container from "react-bootstrap/Container";
+import Container from 'react-bootstrap/Container';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import Button from 'react-bootstrap/Button';
 
 // import any of our components you may need:
+import EmergencyAlertsList from './EmergencyAlertsList';
+import MotivationalTipForm from './MotivationalTipForm';
+import MotivationalTipsList from './MotivationalTipsList';
+import NurseList from './NurseList';
+import PatientList from './PatientsList';
+import RequiredVitalSigns from './RequiredVitalSigns';
+import VitalSignsForm from './VitalSignsForm';
+import VitalSignsList from './VitalSignsList';
 
 function NursePortalHome(props) {
-  // read the info from props, coming from the ancestor component
-  const { screen, setScreen } = props;
-  const [character, setCharacter] = useState("");
-
-  const listAlert = () => {
-    setCharacter("a");
-  };
-
-  const listPatient = () => {
-    setCharacter("p");
-  };
-
-  const listMotivationalTips = () => {
-    setCharacter("t");
-  };
-
-  const listOfVitalSigns = () => {
-    setCharacter("s");
-  };
-
-  return (
-    <Container>
-      {(() => {
-        switch (character) {
-          case "a":
-            return <EmergencyAlertsList screen={screen} setScreen={screen} />;
-          case "t":
-            return <MotivationalTipsList screen={screen} setScreen={screen} />;
-          case "s":
-            return <VitalSignsList screen={screen} setScreen={screen} />;
-          case "p":
-            return <PatientList screen={screen} setScreen={screen} />;
-          default:
-            return (
-              <div>
-                <h1>Nurse Portal</h1>
-                <h2>Nurse: {screen}</h2>
-                <br />
-                <br />
-                <Button variant="success" type="submit" onClick={listAlert}>
-                  List of Alerts
-                </Button>
-                <br />
-                <br />
-                <Button
-                  className="mx-3"
-                  variant="primary"
-                  type="submit"
-                  onClick={listMotivationalTips}
-                >
-                  List of Tips
-                </Button>
-                <br />
-                <br />
-                <Button variant="info" type="submit" onClick={listOfVitalSigns}>
-                  List of Vital Signs
-                </Button>
-
-                <br />
-                <br />
-                <Button variant="warning" type="submit" onClick={listPatient}>
-                  List of Patients
-                </Button>
-              </div>
-            );
+    const apiUrl = 'http://localhost:5000/api/nurse/sign-out';
+    const apiUrl2 = 'http://localhost:5000/api/nurse/read-cookie';
+    const [auth, setAuth] = useState(false);
+    const signOutNurse = async () => {
+        try {
+            var res = await axios.get(apiUrl, {
+                withCredentials: true,
+                credentials: 'include',
+            });
+            if (res.data.message) props.history.push('/clinic/home/');
+        } catch (e) {
+            console.log(e);
         }
-      })()}
-    </Container>
-  );
+    };
+
+    // check if the nurse is already signed in
+    const readCookie = async () => {
+        try {
+            const res = await axios.get(apiUrl2, {
+                withCredentials: true,
+                credentials: 'include',
+            });
+            if (res.data.authorized === true) {
+                setAuth(true);
+            } else {
+                props.history.push('/clinic/sign-in');
+            }
+        } catch (e) {
+            props.history.push('/clinic/sign-in');
+        }
+    };
+    // runs the first time the view is rendered
+    // to check if a nurse is signed in
+    useEffect(() => {
+        readCookie();
+    }, []);
+
+
+    // ####################      Ha:     #####################
+    // since we are using tabs for each view/component
+    // I think you will have to modify your approach for this. Please revise :)
+    //
+
+    // read the info from props, coming from the ancestor component
+    // const { screen, setScreen } = props;
+    // const [character, setCharacter] = useState('');
+
+    // const listAlert = () => {
+    //     setCharacter('a');
+    // };
+
+    // const listPatient = () => {
+    //     setCharacter('p');
+    // };
+
+    // const listMotivationalTips = () => {
+    //     setCharacter('t');
+    // };
+
+    // const listOfVitalSigns = () => {
+    //     setCharacter('s');
+    // };
+
+    return (
+        <Container>
+            {auth === true && (
+                <div>
+                    <h1 className='display-4 text-center mt-3'>Nurse Portal</h1>
+                    <div style={{ display: 'flex' }}>
+                        <Button
+                            style={{ marginLeft: 'auto' }}
+                            variant='info'
+                            onClick={signOutNurse}>
+                            Sign Out
+                        </Button>
+                    </div>
+                    <Tabs
+                        defaultActiveKey='alerts'
+                        id='uncontrolled-tab-example'>
+                        <Tab eventKey='alerts' title='Emergency Alerts List'>
+                            {/* <EmergencyAlertsList/> */}
+                        </Tab>
+                        <Tab
+                            eventKey='mForm'
+                            title='Motivational Tip Form'></Tab>
+                        <Tab eventKey='mList' title='Motivational Tips List'>
+                            <MotivationalTipsList/>
+                        </Tab>
+                        <Tab eventKey='nList' title='Nurse List'></Tab>
+                        <Tab eventKey='pList' title='Patient List'>
+                            <PatientList />
+                        </Tab>
+                        <Tab eventKey='reqV' title='Required Vital Signs'></Tab>
+                        <Tab eventKey='vsForm' title='Vital Signs Form'></Tab>
+                        <Tab eventKey='vsList' title='Vital Signs List'>
+                            {/* <VitalSignsList /> */}
+                        </Tab>
+                    </Tabs>
+                </div>
+            )}
+        </Container>
+    );
 }
 
-export default NursePortalHome;
+export default withRouter(NursePortalHome);

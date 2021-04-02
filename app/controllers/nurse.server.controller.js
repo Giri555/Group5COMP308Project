@@ -132,7 +132,7 @@ exports.isSignedIn = (req, res) => {
    // res.status(200).send({ authorized: true });
 
     // Finally, token is ok, return the id given in the token
-    res.status(200).send({ screen: payload._id });
+    res.status(200).json({ authorized: true });
 
 };
 
