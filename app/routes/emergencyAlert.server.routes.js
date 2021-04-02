@@ -4,11 +4,11 @@ const PatientController = require('../controllers/patient.server.controller');
 module.exports = function (app) {
         app.param('emergencyAlertId', EmergencyAlertsController.emergencyAlertByID);
 
-        app.route("/api/emergencyAlerts")
+        app.route('/api/patient/emergencyAlerts')
         .get(EmergencyAlertsController.list)
         .post(PatientController.requiresLogin, EmergencyAlertsController.hasAuthorization, EmergencyAlertsController.create);
 
-        app.route("/api/emergencyAlerts/:emergencyAlertId")
+        app.route('/api/patient/:emergencyAlertId')
         .get(EmergencyAlertsController.read)
         .put(EmergencyAlertsController.update);
 };

@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 
 // Define a new 'EmergencyAlertSchema'
 var EmergencyAlertSchema = new Schema({
-    title: String,
     dateTime: {
         type: Date,
         default: Date.now,
     },
+    title: String,
     emergencyContacts: String,
     creator: {
         type: Schema.ObjectId,

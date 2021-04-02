@@ -16,18 +16,12 @@ function getErrorMessage(err) {
 exports.create = function (req, res) {
     const emergencyAlert = new EmergencyAlert();
     emergencyAlert.title = req.body.title;
-    emergencyAlert.content = req.body.content;
     console.log(req.body)
-    //
-    //
-    Patient.findOne({email: req.body.email}, (err, patient) => {
 
+    Patient.findOne({email: req.body.email}, (err, patient) => {
         if (err) { return getErrorMessage(err); }
-        //
         req.id = patient._id;
         console.log('patient._id',req.id);
-
-	
     }).then( function () 
     {
         emergencyAlert.creator = req.id
@@ -47,7 +41,7 @@ exports.create = function (req, res) {
     
     });
 };
-//
+
 exports.list = function (req, res) {
     EmergencyAlert.find().sort('-created').populate('patient', 'firstName lastName').exec((err, emergencyAlerts) => {
 if (err) {
@@ -59,7 +53,7 @@ if (err) {
     }
 });
 };
-//
+
 exports.emergencyAlertByID = function (req, res, next, id) {
     EmergencyAlert.findById(id).populate('creator', 'firstName lastName fullName').exec((err, emergencyAlert) => {if (err) return next(err);
     if (!emergencyAlert) return next(new Error('Failed to load emergencyAlert '
@@ -69,11 +63,11 @@ exports.emergencyAlertByID = function (req, res, next, id) {
         next();
     });
 };
-//
+
 exports.read = function (req, res) {
     res.status(200).json(req.emergencyAlert);
 };
-//
+
 exports.update = function (req, res) {
     console.log('in update:', req.emergencyAlert)
     const emergencyAlert = req.emergencyAlert;
@@ -89,7 +83,7 @@ exports.update = function (req, res) {
         }
     });
 };
-//
+
 exports.delete = function (req, res) {
     const emergencyAlert = req.emergencyAlert;
     emergencyAlert.remove((err) => {
