@@ -19,9 +19,9 @@ import Button from 'react-bootstrap/Button';
 // import any of our components you may need:
 import EmergencyAlertsList from './EmergencyAlertsList';
 import MotivationalTipForm from './MotivationalTipForm';
-import MotivationalTipList from './MotivationalTipsList';
+import MotivationalTipsList from './MotivationalTipsList';
 import NurseList from './NurseList';
-import PatientList from './PatientList';
+import PatientList from './PatientsList';
 import RequiredVitalSigns from './RequiredVitalSigns';
 import VitalSignsForm from './VitalSignsForm';
 import VitalSignsList from './VitalSignsList';
@@ -64,6 +64,32 @@ function NursePortalHome(props) {
         readCookie();
     }, []);
 
+
+    // ####################      Ha:     #####################
+    // since we are using tabs for each view/component
+    // I think you will have to modify your approach for this. Please revise :)
+    //
+
+    // read the info from props, coming from the ancestor component
+    // const { screen, setScreen } = props;
+    // const [character, setCharacter] = useState('');
+
+    // const listAlert = () => {
+    //     setCharacter('a');
+    // };
+
+    // const listPatient = () => {
+    //     setCharacter('p');
+    // };
+
+    // const listMotivationalTips = () => {
+    //     setCharacter('t');
+    // };
+
+    // const listOfVitalSigns = () => {
+    //     setCharacter('s');
+    // };
+
     return (
         <Container>
             {auth === true && (
@@ -81,19 +107,23 @@ function NursePortalHome(props) {
                         defaultActiveKey='alerts'
                         id='uncontrolled-tab-example'>
                         <Tab eventKey='alerts' title='Emergency Alerts List'>
-                            {/* component here */}
+                            {/* <EmergencyAlertsList/> */}
                         </Tab>
                         <Tab
                             eventKey='mForm'
                             title='Motivational Tip Form'></Tab>
-                        <Tab
-                            eventKey='mList'
-                            title='Motivational Tips List'></Tab>
+                        <Tab eventKey='mList' title='Motivational Tips List'>
+                            <MotivationalTipsList/>
+                        </Tab>
                         <Tab eventKey='nList' title='Nurse List'></Tab>
-                        <Tab eventKey='pList' title='Patient List'></Tab>
+                        <Tab eventKey='pList' title='Patient List'>
+                            <PatientList />
+                        </Tab>
                         <Tab eventKey='reqV' title='Required Vital Signs'></Tab>
                         <Tab eventKey='vsForm' title='Vital Signs Form'></Tab>
-                        <Tab eventKey='vsList' title='Vital Signs List'></Tab>
+                        <Tab eventKey='vsList' title='Vital Signs List'>
+                            {/* <VitalSignsList /> */}
+                        </Tab>
                     </Tabs>
                 </div>
             )}
