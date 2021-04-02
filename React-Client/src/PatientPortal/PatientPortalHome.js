@@ -1,29 +1,105 @@
 // react
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Redirect, withRouter } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Route,
+    Redirect,
+    withRouter,
+} from 'react-router-dom';
 
 // import axios
-import axios from "axios";
+import axios from 'axios';
 
 // import any react-bootstrap components you may need:
 import Container from 'react-bootstrap/Container';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import Button from 'react-bootstrap/Button';
 
 // import any of our components you may need:
+import DailyInformationForm from './DailyInformationForm';
+import EmergencyAlertForm from './EmergencyAlertForm';
+import MotivationalTipsList from './MotivationalTipsList';
+import MotivationalVideo from './MotivationalVideo';
+import SymptomsChecklist from './SymptomsChecklist';
 
+function PatientPortalHome(props) {
+    const apiUrl = 'http://localhost:5000/api/patient/sign-out';
+    const apiUrl2 = 'http://localhost:5000/api/patient/read-cookie';
+    const [auth, setAuth] = useState(false);
+    const signOutPatient = async () => {
+        try {
+            var res = await axios.get(apiUrl, {
+                withCredentials: true,
+                credentials: 'include',
+            });
+            if (res.data.message) props.history.push('/clinic/home/');
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
+    // check if the patient is already signed in
+    const readCookie = async () => {
+        try {
+            const res = await axios.get(apiUrl2, {
+                withCredentials: true,
+                credentials: 'include',
+            });
+            if (res.data.authorized === true) {
+                setAuth(true);
+            } else {
+                props.history.push('/clinic/sign-in');
+            }
+        } catch (e) {
+            props.history.push('/clinic/sign-in');
+        }
+    };
+    // runs the first time the view is rendered
+    // to check if a patient is signed in
+    useEffect(() => {
+        readCookie();
+    }, []);
 
-function PatientPortalHome(props){
+    return (
+        <Container>
+            {auth === true && (
+                <div>
+                    <h1 className='display-4 text-center mt-3'>
+                        Patient Portal
+                    </h1>
+                    <div style={{ display: 'flex' }}>
+                        <Button
+                            style={{ marginLeft: 'auto' }}
+                            variant='info'
+                            onClick={signOutPatient}>
+                            Sign Out
+                        </Button>
+                    </div>
 
-        // Your logic here ...
-        
+                    <Tabs
+                        defaultActiveKey='dailyInfo'
+                        id='uncontrolled-tab-example'>
+                        <Tab
+                            eventKey='dailyInfo'
+                            title='Daily Information Form'>
+                            {/* component here */}
+                        </Tab>
+                        <Tab
+                            eventKey='alert'
+                            title='Emergency Alert Form'></Tab>
+                        <Tab
+                            eventKey='mList'
+                            title='Motivational Tips List'></Tab>
+                        <Tab eventKey='mVideo' title='Motivational Video'></Tab>
+                        <Tab
+                            eventKey='checklist'
+                            title='Symptoms Checklist'></Tab>
+                    </Tabs>
+                </div>
+            )}
+        </Container>
+    );
+}
 
-        return (
-                <Container>
-                        {/* Whatever you want to display goes inside this container */}
-                        <h1>patient portal</h1>
-                </Container>
-        );
-};
-
-export default PatientPortalHome;
-// export default withRouter(ComponentTemplate); // or this
+export default withRouter(PatientPortalHome);

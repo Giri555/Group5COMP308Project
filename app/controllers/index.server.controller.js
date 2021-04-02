@@ -33,21 +33,21 @@ exports.signIn = function (req, res) {
 };
 
 // handles sign out                                     ***** (requires testing) *****
-exports.signOut = function (req, res) {
-    console.log(`Index - sign out request`);
-    console.log(`req.cookies.patientToken: ${req.cookies.patientToken}`);
-    console.log(`req.cookies.nurseToken: ${req.cookies.nurseToken}`);
+// exports.signOut = function (req, res) {
+//     console.log(`Index - sign out request`);
+//     console.log(`req.cookies.patientToken: ${req.cookies.patientToken}`);
+//     console.log(`req.cookies.nurseToken: ${req.cookies.nurseToken}`);
 
-    let userIsNurse = req.cookies.nurseToken ? true : false;
-    console.log(`The user is a nurse? : ${userIsNurse}`);
+//     let userIsNurse = req.cookies.nurseToken ? true : false;
+//     console.log(`The user is a nurse? : ${userIsNurse}`);
 
-    if (userIsNurse) {
-        // handle nurse sign out
-        console.log(`process nurse sign out`);
-        res.redirect(307, '/api/nurse/sign-out');
-    } else {
-        // handle patient sign out
-        console.log(`process patient sign out`);
-        res.redirect(307, '/api/patient/sign-out');
-    }
-};
+//     if (userIsNurse) {
+//         // handle nurse sign out
+//         console.log(`process nurse sign out`);
+//         res.redirect(307, '/api/nurse/sign-out');
+//     } else {
+//         // handle patient sign out
+//         console.log(`process patient sign out`);
+//         res.redirect(307, '/api/patient/sign-out');
+//     }
+// };
