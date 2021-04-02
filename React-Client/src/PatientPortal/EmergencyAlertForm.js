@@ -38,12 +38,12 @@ function EmergencyAlertForm(props) {
       emergencyContacts: alert.emergencyContacts,
       email: email
     };
-    axios.post(apiUrl, alertData, {withCredentials: true, credentials:'include'})
-    .then((result) => {
+    axios.post(apiUrl, alertData)
+    .then((result) => { 
         setShowLoading(false);
         console.log(result.data);
         if (result.data.error === true) setError(true);
-        else props.history.push('/clinic/patient');
+        else props.history.push('/clinic/patient/portal');
       }).catch((error) => {
         setError(true);
       });

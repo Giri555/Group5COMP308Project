@@ -169,6 +169,7 @@ exports.authenticate = function (req, res, next) {
                 //     screen: patient.email,
                 //     token: patientToken,
                 // });
+                console.log(`req.patient ${patient}`);
                 req.patient = patient;
 
                 res.json({
@@ -269,7 +270,7 @@ exports.requiresLogin = function (req, res, next) {
     // Obtain the session token from the requests cookies,
     // which come with every request
     const patientToken = req.cookies.patientToken;
-    console.log(patientToken);
+    console.log("patient token: ",patientToken);
     // if the cookie is not set, return an unauthorized error
     if (!patientToken) {
         return res.send({ screen: 'auth' }).end();

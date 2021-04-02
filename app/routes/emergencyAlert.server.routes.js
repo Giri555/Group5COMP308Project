@@ -6,7 +6,7 @@ module.exports = function (app) {
 
         app.route('/api/patient/emergencyAlerts')
         .get(EmergencyAlertsController.list)
-        .post(PatientController.requiresLogin, EmergencyAlertsController.hasAuthorization, EmergencyAlertsController.create);
+        .post(EmergencyAlertsController.create);
 
         app.route('/api/patient/:emergencyAlertId')
         .get(EmergencyAlertsController.read)

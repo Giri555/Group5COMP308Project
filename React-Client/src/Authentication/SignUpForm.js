@@ -19,6 +19,7 @@ import Alert from 'react-bootstrap/Alert';
 // import any of our components you may need:
 
 function SignUpForm(props) {
+    console.log(props.screen);
     const apiUrl = 'http://localhost:5000/api/index/sign-up';
     const [error, setError] = useState(false);
     const [user, setUser] = useState({

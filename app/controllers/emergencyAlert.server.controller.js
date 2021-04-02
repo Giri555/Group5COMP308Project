@@ -14,10 +14,11 @@ function getErrorMessage(err) {
 };
 //
 exports.create = function (req, res) {
-    const emergencyAlert = new EmergencyAlert();
-    emergencyAlert.title = req.body.title;
-    console.log(req.body)
-
+    console.log(`reached alert create`);
+    const emergencyAlert = new EmergencyAlert(req.body);
+    // emergencyAlert.title = req.body.title;
+    console.log("alert contents: ",req.body);
+    console.log(`patient email: ${req.patient}`);
     Patient.findOne({email: req.body.email}, (err, patient) => {
         if (err) { return getErrorMessage(err); }
         req.id = patient._id;
