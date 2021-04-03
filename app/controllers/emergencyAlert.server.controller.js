@@ -14,19 +14,14 @@ function getErrorMessage(err) {
 };
 //
 exports.create = function (req, res) {
-    console.log(`reached alert create`);
     const emergencyAlert = new EmergencyAlert(req.body);
-    console.log("alert contents: ",req.body);
-    console.log(`patient id: ${req.id}`);
 
     Patient.findOne({_id: req.id}, (err, patient) => {
         if (err) { return getErrorMessage(err); }
         req.id = patient._id;
-        console.log('patient._id',req.id);
     }).then( function () 
     {
         emergencyAlert.creator = req.id
-        console.log('req.patient._id', req.id);
 
         emergencyAlert.save((err, emergencyAlert) => {
             if (err) {
@@ -44,8 +39,8 @@ exports.create = function (req, res) {
 };
 
 exports.list = function (req, res) {
-    EmergencyAlert.find().sort('-created').populate('patient', 'firstName lastName').exec((err, emergencyAlerts) => {
-if (err) {
+    EmergencyAlert.find().sort('-dateTime').populate('creator', 'firstName lastName').exec((err, emergencyAlerts) => {
+    if (err) {
         return res.status(400).send({
             message: getErrorMessage(err)
         });
@@ -87,6 +82,7 @@ exports.update = function (req, res) {
 
 exports.delete = function (req, res) {
     const emergencyAlert = req.emergencyAlert;
+    console.log(req.emergencyAlert);
     emergencyAlert.remove((err) => {
         if (err) {
             return res.status(400).send({

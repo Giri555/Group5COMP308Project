@@ -3,6 +3,7 @@ import axios from 'axios';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import { withRouter } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 function EmergencyAlertsList(props) {
     const [data, setData] = useState([]);
@@ -18,6 +19,18 @@ function EmergencyAlertsList(props) {
         fetchData();
     }, []);
 
+    const deleteAlert = (id) => {
+        setShowLoading(true);
+        const alert = { title: data.title};
+        //
+        axios.delete(`http://localhost:5000/api/nurse/${id}`, alert)
+          .then((result) => {
+            setShowLoading(false);
+            props.history.push('/clinic/nurse/portal')
+            window.location.reload();
+          }).catch((error) => setShowLoading(false));
+    };
+  
     return (
         <div>
             {showLoading && (
@@ -31,9 +44,12 @@ function EmergencyAlertsList(props) {
                         key={idx}
                         action>
                             EMERGENCY: {emergencyAlert.title}<br />
-                            Patient: {emergencyAlert.creator} <br />
+                            Patient: {emergencyAlert.creator.firstName} {emergencyAlert.creator.lastName} <br />
                             First Responders: {emergencyAlert.emergencyContacts} <br />
                             Date: {emergencyAlert.dateTime}
+                        <Button type='button' variant='danger' onClick={() => {deleteAlert(emergencyAlert._id)}} style={{display: 'flex'}}>
+                            Delete
+                        </Button>
                     </ListGroup.Item>
                 ))}
             </ListGroup>

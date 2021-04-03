@@ -5,13 +5,14 @@ module.exports = function (app) {
         app.param('emergencyAlertId', EmergencyAlertsController.emergencyAlertByID);
 
         app.route('/api/patient/emergencyAlerts')
-        .get(EmergencyAlertsController.list)
         .post(PatientController.requiresLogin, EmergencyAlertsController.create);
 
         app.route('/api/nurse/emergencyAlerts')
-        .get(EmergencyAlertsController.list)
+        .get(EmergencyAlertsController.list);
+       
 
         app.route('/api/nurse/:emergencyAlertId')
         .get(EmergencyAlertsController.read)
-        .put(EmergencyAlertsController.update);
+        .put(EmergencyAlertsController.update)
+        .delete(EmergencyAlertsController.delete);
 };
