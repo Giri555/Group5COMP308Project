@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 function EmergencyAlertsList(props) {
     const [data, setData] = useState([]);
     const [showLoading, setShowLoading] = useState(true);
-    const apiUrl = 'http://localhost:5000/api/nurse/listAlerts';
+    const apiUrl = 'http://localhost:5000/api/nurse/emergencyAlerts';
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,8 +30,10 @@ function EmergencyAlertsList(props) {
                     <ListGroup.Item
                         key={idx}
                         action>
-                            {emergencyAlert.title} {emergencyAlert.dateTime} {emergencyAlert.creator.firstName} {emergencyAlert.creator.lastName} {emergencyAlert.emergencyContacts}
-                            {emergencyAlert.firstName}
+                            EMERGENCY: {emergencyAlert.title}<br />
+                            Patient: {emergencyAlert.creator} <br />
+                            First Responders: {emergencyAlert.emergencyContacts} <br />
+                            Date: {emergencyAlert.dateTime}
                     </ListGroup.Item>
                 ))}
             </ListGroup>

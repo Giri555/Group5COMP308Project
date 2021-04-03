@@ -8,7 +8,10 @@ module.exports = function (app) {
         .get(EmergencyAlertsController.list)
         .post(PatientController.requiresLogin, EmergencyAlertsController.create);
 
-        app.route('/api/patient/:emergencyAlertId')
+        app.route('/api/nurse/emergencyAlerts')
+        .get(EmergencyAlertsController.list)
+
+        app.route('/api/nurse/:emergencyAlertId')
         .get(EmergencyAlertsController.read)
         .put(EmergencyAlertsController.update);
 };

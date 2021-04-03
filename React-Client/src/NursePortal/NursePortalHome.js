@@ -107,7 +107,7 @@ function NursePortalHome(props) {
                         defaultActiveKey='alerts'
                         id='uncontrolled-tab-example'>
                         <Tab eventKey='alerts' title='Emergency Alerts List'>
-                            {/* <EmergencyAlertsList/> */}
+                            <EmergencyAlertsList/>
                         </Tab>
                         <Tab
                             eventKey='mForm'
