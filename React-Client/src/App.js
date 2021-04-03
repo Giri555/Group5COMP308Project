@@ -28,7 +28,7 @@ function App() {
             <Route render={() => <NursePortalHome />} path='/clinic/nurse/portal' />
            
             {/* <Route render={() => <MotivationalTipsList/>} path='/clinic/nurse/motivationalTips'/> */}
-            {/* <Route render={() => <MotivationalTipForm />} path='/clinic/nurse/motivationalTipForm' /> */}
+            <Route render={() => <MotivationalTipForm />} path='/clinic/nurse/motivationalTipForm' />
             <Route render={() => <MotivationalTipDetail/>} path='/clinic/nurse/motivationalTips/:motivationalTipId'/>
             <Route render={() => <PatientListwAddButton />} path='/clinic/nurse/:motivationalTipId/sendTo/patients' />
             {/* <Route render={() => <PatientsList />} path='/clinic/nurse/patients' /> */}
