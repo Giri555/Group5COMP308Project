@@ -153,11 +153,11 @@ exports.authenticate = function (req, res, next) {
                 // Create a new token with the patient id in the payload
                 // and which expires 300 seconds after issue
                 const patientToken = jwt.sign(
-                    { id: patient._id, email: patient.email },
+                    { id: patient._id, email: patient.email }, 
                     jwtKey,
                     { algorithm: 'HS256', expiresIn: jwtExpirySeconds }
                 );
-                console.log('patientToken:', patientToken);
+                console.log('authenticate - patientToken: ', patientToken);
                 // set the cookie as the token string, with a similar max age as the token
                 // here, the max age is in milliseconds
                 res.cookie('patientToken', patientToken, {
@@ -170,7 +170,6 @@ exports.authenticate = function (req, res, next) {
                 //     token: patientToken,
                 // });
                 console.log(`req.patient ${patient}`);
-                req.patient = patient;
 
                 res.json({
                     status: 'success',
@@ -180,6 +179,8 @@ exports.authenticate = function (req, res, next) {
                         patientToken: patientToken,
                     },
                 });
+                
+                req.patient = patient;
                 //call the next middleware
                 next();
             } else {
@@ -270,10 +271,10 @@ exports.requiresLogin = function (req, res, next) {
     // Obtain the session token from the requests cookies,
     // which come with every request
     const patientToken = req.cookies.patientToken;
-    console.log("patient token: ",patientToken);
+    console.log("requiresLogin - patient token: ", patientToken);
     // if the cookie is not set, return an unauthorized error
     if (!patientToken) {
-        return res.send({ screen: 'auth' }).end();
+        return res.json({ authorized: false}).end();
     }
     var payload;
     try {

@@ -16,19 +16,19 @@ function getErrorMessage(err) {
 exports.create = function (req, res) {
     console.log(`reached alert create`);
     const emergencyAlert = new EmergencyAlert(req.body);
-    // emergencyAlert.title = req.body.title;
     console.log("alert contents: ",req.body);
-    console.log(`patient email: ${req.patient}`);
-    Patient.findOne({email: req.body.email}, (err, patient) => {
+    console.log(`patient id: ${req.id}`);
+
+    Patient.findOne({_id: req.id}, (err, patient) => {
         if (err) { return getErrorMessage(err); }
         req.id = patient._id;
         console.log('patient._id',req.id);
     }).then( function () 
     {
         emergencyAlert.creator = req.id
-        console.log('req.patient._id',req.id);
+        console.log('req.patient._id', req.id);
 
-        emergencyAlert.save((err) => {
+        emergencyAlert.save((err, emergencyAlert) => {
             if (err) {
                 console.log('error', getErrorMessage(err))
 

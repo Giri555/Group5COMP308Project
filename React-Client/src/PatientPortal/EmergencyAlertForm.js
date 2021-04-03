@@ -38,7 +38,7 @@ function EmergencyAlertForm(props) {
       emergencyContacts: alert.emergencyContacts,
       email: email
     };
-    axios.post(apiUrl, alertData)
+    axios.post(apiUrl, alertData, {withCredentials: true, credentials: 'include'})
     .then((result) => { 
         setShowLoading(false);
         console.log(result.data);
