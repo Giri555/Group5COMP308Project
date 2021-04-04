@@ -111,11 +111,12 @@ function NursePortalHome(props) {
                         </Tab>
                         <Tab
                             eventKey='mForm'
-                            title='Motivational Tip Form'></Tab>
+                            title='Motivational Tip Form'>
+                                <MotivationalTipForm/>
+                            </Tab>
                         <Tab eventKey='mList' title='Motivational Tips List'>
                             <MotivationalTipsList/>
                         </Tab>
-                        <Tab eventKey='nList' title='Nurse List'></Tab>
                         <Tab eventKey='pList' title='Patient List'>
                             <PatientList />
                         </Tab>

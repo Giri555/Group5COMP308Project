@@ -29,6 +29,8 @@ function PatientPortalHome(props) {
     const apiUrl = 'http://localhost:5000/api/patient/sign-out';
     const apiUrl2 = 'http://localhost:5000/api/patient/read-cookie';
     const [auth, setAuth] = useState(false);
+    const [patient, setPatient] = useState('');
+
     const signOutPatient = async () => {
         try {
             var res = await axios.get(apiUrl, {
@@ -41,6 +43,12 @@ function PatientPortalHome(props) {
         }
     };
 
+    const goTipList = (patientId) => {
+        props.history.push({
+            pathname: '/clinic/patient/'+patientId+'/motivational-tips'
+          });
+    };
+
     // check if the patient is already signed in
     const readCookie = async () => {
         try {
@@ -48,11 +56,15 @@ function PatientPortalHome(props) {
                 withCredentials: true,
                 credentials: 'include',
             });
+            console.log(res.data);
             if (res.data.authorized === true) {
                 setAuth(true);
             } else {
                 props.history.push('/clinic/sign-in');
             }
+            setPatient(res.data.patient.payload.id);
+            console.log('current patient is: '+ patient);
+            
         } catch (e) {
             props.history.push('/clinic/sign-in');
         }
@@ -70,7 +82,16 @@ function PatientPortalHome(props) {
                     <h1 className='display-4 text-center mt-3'>
                         Patient Portal
                     </h1>
+                    <p>Patient id: {patient}</p>
                     <div style={{ display: 'flex' }}>
+            {/* start tip list (since I couldnt pass patient Id to motiovational Tip component)*/}
+                    <Button
+                            style={{ marginLeft: 'auto' }}
+                            variant='warning'
+                            onClick={()=>{goTipList(patient)}}>
+                           Tips List
+                        </Button>
+            {/* end tip list */} 
                         <Button
                             style={{ marginLeft: 'auto' }}
                             variant='info'
@@ -94,6 +115,7 @@ function PatientPortalHome(props) {
                         <Tab
                             eventKey='mList'
                             title='Motivational Tips List'>
+                                <MotivationalTipsList patient ={patient} setPatient={setPatient}/>
                         </Tab>
                         <Tab eventKey='mVideo' title='Motivational Video'>
                                 <MotivationalVideo />

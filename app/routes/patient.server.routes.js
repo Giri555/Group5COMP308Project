@@ -7,8 +7,8 @@ module.exports = function (app) {
     app.post('/api/patient/sign-up', PatientController.create);
 
     // Set up the 'patients' parameterized routes
-    app.route('api/patients/:patientId')
-        .get(PatientController.read)
+    app.route('/api/patients/:patientId')
+        .get(PatientController.requiresLogin, PatientController.read)
         .put(
             PatientController.requiresLogin,
             // PatientController.hasAuthorization,
@@ -18,6 +18,7 @@ module.exports = function (app) {
             PatientController.requiresLogin,
             // PatientController.hasAuthorization,
             PatientController.delete);
+            
     // Set up the 'patientId' parameter middleware
     // All param callbacks will be called before any handler of
     // any route in which the param occurs, and they will each

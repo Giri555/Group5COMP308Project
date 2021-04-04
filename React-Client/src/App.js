@@ -8,7 +8,7 @@ import NursePortalHome from './NursePortal/NursePortalHome';
 import PatientPortalHome from './PatientPortal/PatientPortalHome';
 
 import MotivationalTipForm from './NursePortal/MotivationalTipForm';
-import MotivationalTipsList from './NursePortal/MotivationalTipsList';
+import MotivationalTipsList from './PatientPortal/MotivationalTipsList';
 import MotivationalTipDetail from './NursePortal/MotivationalTipDetail';
 import PatientListwAddButton from './NursePortal/PatientListwAddButton';
 import PatientsList from './NursePortal/PatientsList';
@@ -33,7 +33,7 @@ function App() {
             <Route render={() => <PatientListwAddButton />} path='/clinic/nurse/:motivationalTipId/sendTo/patients' />
             {/* <Route render={() => <PatientsList />} path='/clinic/nurse/patients' /> */}
                         
-            
+            <Route render={() => <MotivationalTipsList />} path='/clinic/patient/:patientId/motivational-tips' />
 
             {/*route for patient portal*/}
             <Route render={() => <PatientPortalHome />} path='/clinic/patient/portal' />
