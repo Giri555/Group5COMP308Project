@@ -46,6 +46,11 @@ NurseSchema.virtual('fullName')
 // Use a pre-save middleware to hash the password
 // before saving it into database
 NurseSchema.pre('save', function (next) {
+
+    if(!this.isModified('password')){
+        return next();
+    } 
+    
     //hash the password before saving it
     this.password = bcrypt.hashSync(this.password, saltRounds);
     next();
