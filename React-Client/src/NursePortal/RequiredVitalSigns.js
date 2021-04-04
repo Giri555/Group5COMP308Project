@@ -101,8 +101,8 @@ function RequiredVitalSigns() {
     };
 
     return (
-        <Container className='mt-5'>
-            <Form onSubmit={submitRequirements}>
+        <Container className='mt-1'>
+            <Form className='mt-3' onSubmit={submitRequirements}>
                 <h3>Required Vital Signs Form</h3>
                 <Form.Group>
                     <Form.Label>Step 1 - Select the patient</Form.Label>

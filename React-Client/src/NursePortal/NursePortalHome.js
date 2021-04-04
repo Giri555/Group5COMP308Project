@@ -122,9 +122,11 @@ function NursePortalHome(props) {
                         <Tab eventKey='reqV' title='Required Vital Signs'>
                             <RequiredVitalSigns />
                         </Tab>
-                        <Tab eventKey='vsForm' title='Vital Signs Form'></Tab>
+                        <Tab eventKey='vsForm' title='Vital Signs Form'>
+                            <VitalSignsForm />
+                        </Tab>
                         <Tab eventKey='vsList' title='Vital Signs List'>
-                            {/* <VitalSignsList /> */}
+                            <VitalSignsList />
                         </Tab>
                     </Tabs>
                 </div>
