@@ -28,8 +28,7 @@ function PatientsList(props) {
             <ListGroup>
                 {data.map((patient, idx) => (
                     <ListGroup.Item
-                        key={idx}
-                        action>
+                        key={idx}>
                             {patient.firstName} {patient.lastName}
                     </ListGroup.Item>
                 ))}

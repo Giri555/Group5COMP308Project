@@ -1,10 +1,10 @@
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 import React, { useState } from 'react';
+import Container from 'react-bootstrap/Container';
 
 function MotivationalTipForm(props) {
     
@@ -37,15 +37,15 @@ function MotivationalTipForm(props) {
       }
     
     return (
-        <div>
-        <h2> Create a motivational Tip</h2>
+      <Container className='mt-1'>
         {showLoading && 
             <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
             </Spinner> 
         } 
-        <Jumbotron>
-            <Form onSubmit={saveTip}>
+        <div>
+            <Form className='mt-3' onSubmit={saveTip}>
+            <h3>Create a Motivational Tip</h3>
               <Form.Group>
                 <Form.Label>Title</Form.Label>
                 <Form.Control type="text" name="title" id="title" placeholder="Enter title" value={tip.title} onChange={onChange} />
@@ -54,13 +54,13 @@ function MotivationalTipForm(props) {
                 <Form.Label>Content</Form.Label>
                 <Form.Control type="text" name="content" id="content" placeholder="Enter content" value={tip.content} onChange={onChange} />
               </Form.Group>      
-              <Button variant="success" type="submit">
-                Save Title
+              <Button variant="info" type="submit">
+                Create Tip
               </Button>
               {error ? <h6>{error}</h6> : <h6></h6>}
             </Form>
-          </Jumbotron>
-        </div>
+          </div>
+        </Container>
     );
 }
 
