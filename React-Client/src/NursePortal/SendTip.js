@@ -18,7 +18,7 @@ function SendTip(props){
     const [error, setError] = useState(true);
     const [patientList, setPatientList] = useState([]); // array of patients
     const [patient, setPatient] = useState(''); // the selected patient's id
-
+    const [data, setData] =useState([]);
     // initialize the select with list of patients
     const getPatientList = async () => {
         try {
@@ -26,6 +26,7 @@ function SendTip(props){
                 withCredentials: true,
                 credentials: 'include',
             });
+            setData(res.data);
             if (res.data) {
                 console.log(`this is the list of patients`, res.data);
                 setPatientList(res.data);
@@ -83,9 +84,14 @@ function SendTip(props){
     const sendTip = e => {
             const apiUrl_sendTip = `http://localhost:5000/api/nurse/motivationalTips/${tip}/${patient}`; // put
             e.preventDefault();
+
+            //tip object: 
+            const tipObject={title: data.title, content:data.content}
+        
             console.log(`url: ${apiUrl_sendTip}`);
-            axios.put(apiUrl_sendTip, { withCredentials: true, credentials: 'include' })
+            axios.put(apiUrl_sendTip, tipObject,{ withCredentials: true, credentials: 'include' })
                 .then((result) => {
+                    console.log('after send Tip come here'+ result.data)
                         if(result.data.patient){
                                 console.log(`result of send tip patient: ${result.data.patient}`);
                                 setError(false);
