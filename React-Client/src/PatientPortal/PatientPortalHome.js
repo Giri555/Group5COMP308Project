@@ -114,8 +114,9 @@ function PatientPortalHome(props) {
                         </Tab>
                         <Tab
                             eventKey='mList'
-                            title='Motivational Tips List'>
-                                <MotivationalTipsList patient ={patient} setPatient={setPatient}/>
+                            title='Motivational Tips List'
+                            onClick={()=>{goTipList(patient)}}>
+                                {/* <MotivationalTipsList patient ={patient} setPatient={setPatient}/> */}
                         </Tab>
                         <Tab eventKey='mVideo' title='Motivational Video'>
                                 <MotivationalVideo />

@@ -41,8 +41,7 @@ function EmergencyAlertsList(props) {
             <ListGroup>
                 {data.map((emergencyAlert, idx) => (
                     <ListGroup.Item
-                        key={idx}
-                        action>
+                        key={idx}>
                             EMERGENCY: {emergencyAlert.title}<br />
                             Patient: {emergencyAlert.creator.firstName} {emergencyAlert.creator.lastName} <br />
                             First Responders: {emergencyAlert.emergencyContacts} <br />

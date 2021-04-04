@@ -25,6 +25,7 @@ import PatientList from './PatientsList';
 import RequiredVitalSigns from './RequiredVitalSigns';
 import VitalSignsForm from './VitalSignsForm';
 import VitalSignsList from './VitalSignsList';
+import SendTip from './SendTip';
 
 function NursePortalHome(props) {
     const apiUrl = 'http://localhost:5000/api/nurse/sign-out';
@@ -90,12 +91,15 @@ function NursePortalHome(props) {
     //     setCharacter('s');
     // };
 
+    // manage tabs:
+    const [key, setKey] = useState('alerts');
+
     return (
         <Container>
             {auth === true && (
                 <div>
                     <h1 className='display-4 text-center mt-3'>Nurse Portal</h1>
-                    <div style={{ display: 'flex' }}>
+                    <div style={{ display: 'flex' }} className='my-2'>
                         <Button
                             style={{ marginLeft: 'auto' }}
                             variant='info'
@@ -103,9 +107,7 @@ function NursePortalHome(props) {
                             Sign Out
                         </Button>
                     </div>
-                    <Tabs
-                        defaultActiveKey='alerts'
-                        id='uncontrolled-tab-example'>
+                    <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
                         <Tab eventKey='alerts' title='Emergency Alerts List'>
                             <EmergencyAlertsList/>
                         </Tab>
@@ -114,8 +116,9 @@ function NursePortalHome(props) {
                             title='Motivational Tip Form'>
                                 <MotivationalTipForm/>
                             </Tab>
-                        <Tab eventKey='mList' title='Motivational Tips List'>
-                            <MotivationalTipsList/>
+                        <Tab eventKey='sendTip' title='Send Tip'>
+                            {/* <MotivationalTipsList/> */}
+                            <SendTip />
                         </Tab>
                         <Tab eventKey='pList' title='Patient List'>
                             <PatientList />
