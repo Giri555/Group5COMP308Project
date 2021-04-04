@@ -263,7 +263,7 @@ exports.isSignedIn = (req, res) => {
     }
 
     // Finally, token is ok, return the email given in the token
-    res.status(200).json({ authorized: true });
+    res.status(200).json({ authorized: true , patient: {payload}});
 };
 
 //isAuthenticated() method to check whether a patient is currently authenticated
