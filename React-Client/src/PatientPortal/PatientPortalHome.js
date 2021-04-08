@@ -43,12 +43,6 @@ function PatientPortalHome(props) {
         }
     };
 
-    const goTipList = (patientId) => {
-        props.history.push({
-            pathname: '/clinic/patient/'+patientId+'/motivational-tips'
-          });
-    };
-
     // check if the patient is already signed in
     const readCookie = async () => {
         try {
@@ -82,16 +76,7 @@ function PatientPortalHome(props) {
                     <h1 className='display-4 text-center mt-3'>
                         Patient Portal
                     </h1>
-                    <p>Patient id: {patient}</p>
                     <div style={{ display: 'flex' }}>
-            {/* start tip list (since I couldnt pass patient Id to motiovational Tip component)*/}
-                    <Button
-                            style={{ marginLeft: 'auto' }}
-                            variant='warning'
-                            onClick={()=>{goTipList(patient)}}>
-                           Tips List
-                        </Button>
-            {/* end tip list */} 
                         <Button
                             style={{ marginLeft: 'auto' }}
                             variant='info'
@@ -114,9 +99,8 @@ function PatientPortalHome(props) {
                         </Tab>
                         <Tab
                             eventKey='mList'
-                            title='Motivational Tips List'
-                            onClick={()=>{goTipList(patient)}}>
-                                {/* <MotivationalTipsList patient ={patient} setPatient={setPatient}/> */}
+                            title='Motivational Tips List'>
+                                <MotivationalTipsList />
                         </Tab>
                         <Tab eventKey='mVideo' title='Motivational Video'>
                                 <MotivationalVideo />
