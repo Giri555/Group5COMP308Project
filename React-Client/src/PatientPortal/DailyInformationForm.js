@@ -16,9 +16,9 @@ function DailyInformationForm(props) {
     const apiUrl_patient = 'http://localhost:5000/api/patient/read-cookie';
     const [error, setError] = useState(true);
     const [patient, setPatient] = useState(''); // the selected patient's id
-    const [button, setButton] = useState(false);
+    const [button, setButton] = useState(false); // if button shows
  
-  // requirements to filter
+    // requirements to filter
     const [requirements, setRequirements] = useState({
       bodyTemperature: false,
       heartRate: false,
@@ -48,7 +48,9 @@ function DailyInformationForm(props) {
 
     const onChange = (e) => {
       e.persist();
+      // display button
       setButton(true);
+      // set the input vital signs
       setVitalsSigns({ ...vitalSigns, [e.target.name]: e.target.value });
     };
 
@@ -62,7 +64,9 @@ function DailyInformationForm(props) {
       if (res.data) {
         console.log(`this is the received patient `, res.data);
         console.log('Patient ID: ', res.data.patient.payload.id);
+        // set patient id
         setPatient(res.data.patient.payload.id);
+        // get patient data
         const res2 = await axios.get(`http://localhost:5000/api/patients/${res.data.patient.payload.id}`, {
           withCredentials: true,
           credentials: 'include',
