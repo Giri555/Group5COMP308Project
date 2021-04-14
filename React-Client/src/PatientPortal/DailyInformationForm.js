@@ -11,8 +11,6 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
 function DailyInformationForm(props) {
-    // Step 1 -- Set up the patient list:
-    const apiUrl = 'http://localhost:5000/api/daily-info/patient/:patientId';
     const apiUrl_patient = 'http://localhost:5000/api/patient/read-cookie';
     const [error, setError] = useState(true);
     const [patient, setPatient] = useState(''); // the selected patient's id
