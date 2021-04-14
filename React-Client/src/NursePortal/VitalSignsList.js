@@ -91,6 +91,8 @@ function VitalSignsList() {
                 <ListGroup>
                         {vitalSignsData.map((vs, idx) => (
                         <ListGroup.Item key={idx}>
+                                Date: {vs.dateTime}
+                                <br />
                                 Body Temperature: {vs.bodyTemperature}
                                 <br/>
                                 Heart Rate: {vs.heartRate}

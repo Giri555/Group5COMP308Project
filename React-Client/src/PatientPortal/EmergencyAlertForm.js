@@ -44,6 +44,7 @@ function EmergencyAlertForm(props) {
         console.log(result.data);
         if (result.data.error === true) setError(true);
         else props.history.push('/clinic/patient/portal');
+        window.location.reload();
       }).catch((error) => {
         setError(true);
       });

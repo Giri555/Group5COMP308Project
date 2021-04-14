@@ -91,6 +91,7 @@ function PatientPortalHome(props) {
                         <Tab
                             eventKey='dailyInfo'
                             title='Daily Information Form'>
+                                <DailyInformationForm />
                         </Tab>
                         <Tab
                             eventKey='alert'
