@@ -2,7 +2,7 @@
   "name": "Group5COMP308Project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -18,7 +18,9 @@
     "jsonwebtoken": "^8.5.1",
     "method-override": "^2.3.10",
     "mongoose": "^5.8.9",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "@tensorflow/tfjs": "^1.7.0",
+    "csvtojson": "^2.0.8"
   },
   "proxy": "http://localhost:3000/",
   "devDependencies": {
