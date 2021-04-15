@@ -69,6 +69,7 @@ function DailyInformationForm(props) {
           withCredentials: true,
           credentials: 'include',
         });
+        console.log(res2.data);
         if (res2.data) {
           setRequirements(res2.data.requirements);
           // console.log("PATIENT REQUIREMENTS FROM res2.data: ", res2.data.requirements);
@@ -113,7 +114,7 @@ function DailyInformationForm(props) {
         <h3>Daily Information Form</h3>
         <Form.Label>Enter specified information</Form.Label>
         {vitalSignsTypes.map((type) => {
-          if (requirements[type.propName]) {
+          if (typeof requirements !== 'undefined' && requirements[type.propName]) {
             return (
               <Form.Group>
                 <Form.Label>{type.name}</Form.Label>

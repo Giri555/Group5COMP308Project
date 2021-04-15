@@ -93,17 +93,17 @@ function VitalSignsList() {
                         <ListGroup.Item key={idx}>
                                 Date: {vs.dateTime}
                                 <br />
-                                Body Temperature: {vs.bodyTemperature}
+                                Body Temperature: <font color='green'>{vs.bodyTemperature}</font>
                                 <br/>
-                                Heart Rate: {vs.heartRate}
+                                Heart Rate: <font color='green'>{vs.heartRate}</font>
                                 <br/>
-                                Blood Pressure: {vs.bloodPressure}
+                                Blood Pressure: <font color='green'>{vs.bloodPressure}</font>
                                 <br/>
-                                Respiratory Rate: {vs.respiratoryRate}
+                                Respiratory Rate: <font color='green'>{vs.respiratoryRate}</font>
                                 <br/>
-                                Pulse Rate: {vs.pulseRate}
+                                Pulse Rate: <font color='green'>{vs.pulseRate}</font>
                                 <br/>
-                                Weight: {vs.weight}
+                                Weight: <font color='green'>{vs.weight}</font>
                         </ListGroup.Item>
                         ))}
                 </ListGroup>
