@@ -7,12 +7,6 @@ import SignUpForm from './Authentication/SignUpForm';
 import NursePortalHome from './NursePortal/NursePortalHome';
 import PatientPortalHome from './PatientPortal/PatientPortalHome';
 
-// import MotivationalTipForm from './NursePortal/MotivationalTipForm';
-// import MotivationalTipsList from './PatientPortal/MotivationalTipsList';
-// import MotivationalTipDetail from './NursePortal/MotivationalTipDetail';
-// import PatientListwAddButton from './NursePortal/PatientListwAddButton';
-// import PatientsList from './NursePortal/PatientsList';
-
 function App() {
     return (
         <Router>
