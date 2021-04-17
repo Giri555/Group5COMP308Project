@@ -1,0 +1,10 @@
+﻿Pain in lower abdomen,Pain in middle abdomen,Pain in upper abdomen,Dry cough,Wet cough,Headache on one side of head,Headache on both sides of head,Problem with one eye,Problem with both eyes,Severe chest pain,Squeezing chest pain,Burning chest pain,Sharp chest pain,Nasal congestion,Sore throat,Prognosis
+0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,Common cold
+0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,Pneumonia
+0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,Influenza (flu)
+0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,Migraine
+0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,Stroke
+0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,Heart attack
+0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,Heartburn
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,Strep throat
+0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,Bronchitis
