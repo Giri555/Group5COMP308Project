@@ -4,7 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import { withRouter } from 'react-router-dom';
 
-function NurseList(props) {
+function NurseList() {
     const [data, setData] = useState([]);
     const [showLoading, setShowLoading] = useState(true);
     const apiUrl = 'http://localhost:3000/api/nurses';

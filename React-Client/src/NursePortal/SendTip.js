@@ -1,6 +1,5 @@
 // react
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Redirect, withRouter } from 'react-router-dom';
 
 // import axios
 import axios from "axios";
@@ -11,7 +10,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
-function SendTip(props){
+function SendTip(){
 
     // Step 1 -- Set up the patient list:
     const apiUrl_patientList = 'http://localhost:5000/api/nurse/listPatients';

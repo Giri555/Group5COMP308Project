@@ -1,11 +1,6 @@
 // react
-import React, { useState, useEffect } from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-    Redirect,
-    withRouter,
-} from 'react-router-dom';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 
 // import axios
 import axios from 'axios';

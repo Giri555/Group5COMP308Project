@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
-function VitalSignsForm(props) {
+function VitalSignsForm() {
     // Step 1 -- Set up the patient list:
     const apiUrl_patientList = 'http://localhost:5000/api/nurse/listPatients';
     const [error, setError] = useState(true);

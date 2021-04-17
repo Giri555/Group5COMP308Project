@@ -1,11 +1,6 @@
 // react
 import React, { useState, useEffect } from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-    Redirect,
-    withRouter,
-} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 // import axios
 import axios from 'axios';
@@ -19,8 +14,6 @@ import Button from 'react-bootstrap/Button';
 // import any of our components you may need:
 import EmergencyAlertsList from './EmergencyAlertsList';
 import MotivationalTipForm from './MotivationalTipForm';
-import MotivationalTipsList from './MotivationalTipsList';
-import NurseList from './NurseList';
 import PatientList from './PatientsList';
 import RequiredVitalSigns from './RequiredVitalSigns';
 import VitalSignsForm from './VitalSignsForm';
@@ -65,32 +58,6 @@ function NursePortalHome(props) {
         readCookie();
     }, []);
 
-
-    // ####################      Ha:     #####################
-    // since we are using tabs for each view/component
-    // I think you will have to modify your approach for this. Please revise :)
-    //
-
-    // read the info from props, coming from the ancestor component
-    // const { screen, setScreen } = props;
-    // const [character, setCharacter] = useState('');
-
-    // const listAlert = () => {
-    //     setCharacter('a');
-    // };
-
-    // const listPatient = () => {
-    //     setCharacter('p');
-    // };
-
-    // const listMotivationalTips = () => {
-    //     setCharacter('t');
-    // };
-
-    // const listOfVitalSigns = () => {
-    //     setCharacter('s');
-    // };
-
     // manage tabs:
     const [key, setKey] = useState('alerts');
 
@@ -111,13 +78,10 @@ function NursePortalHome(props) {
                         <Tab eventKey='alerts' title='Emergency Alerts List'>
                             <EmergencyAlertsList/>
                         </Tab>
-                        <Tab
-                            eventKey='mForm'
-                            title='Motivational Tip Form'>
+                        <Tab eventKey='mForm' title='Motivational Tip Form'>
                                 <MotivationalTipForm/>
                             </Tab>
                         <Tab eventKey='sendTip' title='Send Tip'>
-                            {/* <MotivationalTipsList/> */}
                             <SendTip />
                         </Tab>
                         <Tab eventKey='pList' title='Patient List'>

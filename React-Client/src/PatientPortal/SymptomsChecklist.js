@@ -55,8 +55,8 @@ function SymptomsChecklist(props) {
     // handle checkbox toggle
     const onReqChange = (e) => {
         e.persist();
-        console.log(`name: ${e.target.name}, checked: ${e.target.checked == true ? 1 : 0}`);
-        setSymptoms({ ...symptoms, [e.target.name]: e.target.checked == true ? 1 : 0 });
+        console.log(`name: ${e.target.name}, checked: ${e.target.checked === true ? 1 : 0}`);
+        setSymptoms({ ...symptoms, [e.target.name]: e.target.checked === true ? 1 : 0 });
     };
 
     // on form submit, predict prognosis
@@ -99,8 +99,7 @@ function SymptomsChecklist(props) {
 
                 {showLoading === true && (
                     <div>
-                        <h1></h1>
-                        <Spinner animation='border' role='status'>
+                        <Spinner animation='border' role='status' className='mt-3'>
                             <span className='sr-only'>Loading...</span>
                         </Spinner>
                         <h4>One moment please...</h4>

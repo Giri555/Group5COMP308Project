@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
-function DailyInformationForm(props) {
+function DailyInformationForm() {
     const apiUrl_patient = 'http://localhost:5000/api/patient/read-cookie';
     const [error, setError] = useState(true);
     const [patient, setPatient] = useState(''); // the selected patient's id
