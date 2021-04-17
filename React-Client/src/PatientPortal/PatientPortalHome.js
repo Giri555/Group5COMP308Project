@@ -106,9 +106,8 @@ function PatientPortalHome(props) {
                         <Tab eventKey='mVideo' title='Motivational Video'>
                                 <MotivationalVideo />
                         </Tab>
-                        <Tab
-                            eventKey='checklist'
-                            title='Symptoms Checklist'>
+                        <Tab eventKey='checklist' title='Symptoms Checklist'>
+                            <SymptomsChecklist />
                         </Tab>
                     </Tabs>
                 </div>
